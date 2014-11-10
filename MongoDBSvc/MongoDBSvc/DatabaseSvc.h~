@@ -1,0 +1,70 @@
+#ifndef DATABASESVC_H
+#define DATABASESVC_H
+
+#include "SniperKernel/SvcBase.h"
+#include <string>
+#include"mongo/client/dbclient.h" 
+class DbInterface;
+class DatabaseSvc : public SvcBase {
+ friend class SvcFactory<DatabaseSvc>;
+    protected:
+
+    DatabaseSvc( const std::string& name, ISvcLocator* sl );
+    virtual ~DatabaseSvc();
+
+
+    public:
+       virtual StatusCode queryInterface( const InterfaceID& riid, void** ppvInterface )
+       virtual StatusCode initialize();
+       virtual StatusCode finalize();
+ 
+};
+
+
+#include "DatabaseSvc/DatabaseRecord.h"
+#include "DatabaseSvc/DbInterface.h"
+class DatabaseSvc
+ {
+  public:
+  static DatabaseSvc*   instance() {
+    return (m_db) ? m_db : (m_db = new DatabaseSvc());
+  }
+ 
+  private:
+                         DatabaseSvc();
+   virtual              ~DatabaseSvc();
+
+   bool                  initialize();
+   void                  finalize();
+ 
+ public:
+  void                  SetDBFilePath(std::string dbFilePath);
+   std::string           GetDBFilePath() const   {return m_dbFilePath;}
+ #endif
+ 
+   // make query 
+   int query(const std::string& dbName, const std::string& mongo);
+   int query(const std::string& dbName, const std::string& mongo, 
+                                         DatabaseRecordVector& res);
+  
+  private:
+ 
+   DbInterface * dbInterface;  
+   std::string m_dbName;
+   
+   std::string m_dbHost;
+   std::string m_dbUser;
+   std::string m_dbPasswd;
+   std::string m_dbFilePath;
+   std::string m_dbType;
+   bool m_dbReuseConnection;
+    BSONObj m_options;
+
+ #ifdef BEAN
+   static DatabaseSvc* m_db;
+ #endif
+ };
+
+#endif 
+
+

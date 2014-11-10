@@ -1,0 +1,2 @@
+# export MONGOHOME=/home/ihep/mongo-cxx-driver/build/install
+export MONGOHOME=/home/liujy/test/mongo-cxx-driver/mongo-client-install
