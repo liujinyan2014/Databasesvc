@@ -1,9 +1,9 @@
-#include "DatabaseSvc/DatabaseSvc.h"
+#include "MongoBDSvc/MongoDBSvc.h"
 #include "SniperKernel/SvcFactory.h"
 #include "SniperKernel/SniperLog.h"
 
 #include "mongo/client/dbclient.h" // for the driver
-#include "DatabaseSvc/MongoDB.h"
+#include "DatabaseSvc/MongoJson/MongoDB.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -37,9 +37,9 @@ MongoDBSvc::initialize()
         << std::endl;
 if(m_conn(0))
  {
-    m_conn = new mongo::DBClientConnection;
+    c = new MongoDBQuery;
 
-    m_conn->connect(m_hostname);
+    c->connect(m_hostname);
 
     m_dbname = "mydb.testData";
 }
