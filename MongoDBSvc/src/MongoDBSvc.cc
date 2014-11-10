@@ -45,19 +45,19 @@ if(m_conn(0))
 }
 catch ( std::exception &e ) {
  
-     log << MSG::FATAL << "Exception in DataSvc initialization:" << endreq;
-     log << MSG::FATAL << "***  error message: " << e.what()<< endreq;
-    return StatusCode::FAILURE;
+     LogDebug << "Exception in DataSvc initialization:" <<std::endl;
+     LogDebug << "***  error message: " << e.what()<<std::endl;
+    return 1;
  
    } catch (char* mess) {
-    log << MSG::FATAL << "Exception DataSvc initialization caught: " << mess << endreq;
+    LogDebug << "Exception DataSvc initialization caught: " << mess << std::endl;
     return 1;
    }
     catch (...) {
-     log << MSG::FATAL << "UNKNOWN exception in DataSvc session initialization caught" << endreq;
+     LogDebug << "UNKNOWN exception in DataSvc session initialization caught" <<std::endl;
      return 1;
   }
-   log << MSG::INFO << "DatabaseSvc initialized successfully" << endreq;
+    LogDebug << "DatabaseSvc initialized successfully" << std::endl;
      return 0;
       }
  }
@@ -84,6 +84,9 @@ if(m_conn()){
  }
  
 QueryResult MongoDBSvc::query(const QueryString& qs)
+{
+return MyMongoDB::QueryResult result;
+}
 
 
 
