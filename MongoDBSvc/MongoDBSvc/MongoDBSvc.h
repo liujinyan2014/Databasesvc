@@ -26,6 +26,5 @@ class DatabaseSvc : public SvcBase {
         mongo::DBClientConnection* m_conn;
  };
 
-#endif 
 
 
